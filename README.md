@@ -66,12 +66,52 @@ To write a program for Frequency Modulation and Demodulation using SCILAB and to
 <img width="512" height="365" alt="image" src="https://github.com/user-attachments/assets/dfe6bc64-2b6f-4afa-ae79-95391859ab04" />
 
 ## PROGRAM
-
+Am = 7.3;
+fm = 713;
+fs = 713000;
+Ac = 14.6;
+fc = 7130;
+b = 5; 
+t = 0:1/fs:2/fm;
+m = Am * cos(2 * 3.14 * fm * t);
+subplot(4,1,1);
+plot(t, m);
+title('Message Signal');
+xlabel('Time (s)');
+ylabel('Amplitude');
+c = Ac * cos(2 * 3.14 * fc * t);
+subplot(4,1,2);
+plot(t, c);
+title('Carrier Signal');
+xlabel('Time (s)');
+ylabel('Amplitude');
+s = Ac * cos(2 * 3.14 * fc * t + b * sin(2 * 3.14 * fm * t));
+subplot(4,1,3);
+plot(t, s);
+title('FM Modulated Signal');
+xlabel('Time (s)');
+ylabel('Amplitude');
+demod = 10*abs(diff(s)); 
+demod = demod * (Am / max(demod));
+N = 255;                      
+h = ones(1, N) / N;           
+demod = conv(demod, h, 'same'); 
+demod = demod - mean(demod);        
+demod = demod * (Am / max(abs(demod)));       
+t_demod = t(1:length(demod));
+subplot(4,1,4);
+plot(t_demod, demod);
+title('Demodulated Signal');
+xlabel('Time (s)');
+ylabel('Amplitude');
 ## TABULATION
+![WhatsApp Image 2025-12-05 at 23 34 59_31840045](https://github.com/user-attachments/assets/18c49883-2f7f-4701-99c4-1153b405a100)
 
 ## CALCULATION
+![WhatsApp Image 2025-12-05 at 23 35 15_358a7fcb](https://github.com/user-attachments/assets/97379bcf-9997-4f30-a697-34aa2c2994d2)
 
 ## OUTPUT
+<img width="393" height="349" alt="image" src="https://github.com/user-attachments/assets/e865bc13-2fe4-4a1e-a5f8-e987d16c5b65" />
 
 ## RESULT
-
+Thus, the Frequency Modulation and Demodulation is successfully done and the output is experimentally verified.
